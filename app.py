@@ -11,14 +11,6 @@ app.config['DEBUG'] = True # Enable this only while testing!
 def hello():
 	return render_template('hello.html')
 
-@app.route('/name')
-def my_name():
-	return "Dan Schlosser"
-
-@app.route('/website')
-def website():
-	return "adicu.com"
-
 @app.route('/search', methods=["GET", "POST"])
 def search():
 	if request.method == "POST":
@@ -30,10 +22,6 @@ def search():
 	else: # request.method == "GET"
 		return render_template("search.html")
 
-@app.route('/add/<x>/<y>')
-def add(x, y):
-	return int(x) + int(y)
-
 # Handle
 @app.errorhandler(404)
 def not_found(error):
@@ -42,6 +30,16 @@ def not_found(error):
 @app.errorhandler(500)
 def internal_server_error(error):
 	return "My code broke, my bad.", 500
+
+
+@app.route('/info/<company_name>')
+def get_posts(company_name):
+    #Returns the list of updates of a company.
+    TOKEN ='575731909230644|ZuJwTeYLANGBOsZFWPczcx8JDZo'
+    parameters = {'access_token': TOKEN}
+    response = requests.get('https://graph.facebook.com/'+ company_name + '/feed', params=parameters)
+    response_dict = response.json()
+    return jsonify(response_dict)
 
 
 # If the user executed this python file (typed `python app.py` in their
