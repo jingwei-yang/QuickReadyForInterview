@@ -1,10 +1,7 @@
 from flask import Flask, jsonify, render_template, request,redirect,session,url_for
-
 import requests
 import nytime
-from xml.etree.ElementTree import ElementTree
 import xml.etree.ElementTree as ET
-import xml
 
 
 # Create an Flask app object.  We'll use this to create the routes.
@@ -55,7 +52,6 @@ def getToke():
         'redirect_uri':urhaha,
         'client_id':'77xb7liae3hzk1',
         'client_secret':'8phXc3HeTwdeamsv'
-
     }
     response = requests.post(url,params=para)
     response_dict=response.json()
@@ -93,11 +89,11 @@ def go(company_name):
 # Error Handler
 @app.errorhandler(404)
 def not_found(error):
-    return "Sorry, I haven't coded that yet.", 404
+    return render_template('404.html'), 404
 
 @app.errorhandler(500)
 def internal_server_error(error):
-    return "My code broke, my bad.", 500
+    return render_template('500.html'), 500
 
 @app.route('/info/<company_name>')
 def get_posts(company_name):
