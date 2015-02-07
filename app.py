@@ -8,6 +8,8 @@ app = Flask(__name__)
 # Allow Flask to autoreload when we make changes to `app.py`.
 app.config['DEBUG'] = True # Enable this only while testing!
 
+
+# Handle
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -43,7 +45,6 @@ def search_nytimes():
         return render_template("search.html")
 >>>>>>> origin/master
 
-# Handle
 @app.errorhandler(404)
 def not_found(error):
     return "Sorry, I haven't coded that yet.", 404
