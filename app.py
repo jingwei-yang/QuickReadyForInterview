@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 # Allow Flask to autoreload when we make changes to `app.py`.
 app.config['DEBUG'] = True # Enable this only while testing!
-access_token= None
+access_token=""
 
 
 # Three main pages
@@ -31,7 +31,7 @@ def results():
     if request.method == "POST":
         keyword = request.form['company-name']
         data['glassdoor'] = glassdoor(keyword)
-        data['linkedin'] = linkedin(keyword)
+        data['linkedin'] = goCompany(keyword)
         data['nytimes'] = nytimes(keyword)
         data['facebook'] = facebook(keyword)
         return render_template('results.html', api_data=data)
@@ -47,7 +47,7 @@ def login():
 @app.route('/linkedin')
 def getToke():
     authenticationCode = request.args['code']
-    
+    global access_token
     url = "https://www.linkedin.com/uas/oauth2/accessToken"
     urhaha= "http://localhost:5000/linkedin"
     para = {
@@ -61,35 +61,50 @@ def getToke():
     response = requests.post(url,params=para)
     response_dict=response.json()
     access_token = response_dict['access_token']
+    print "this is  jinggggggggggg wei"
+    print access_token
     return redirect(url_for('search'),302)
     
 @app.route('/searchCompany/<company_name>')
-def go(company_name):    
+def goCompany(company_name):    
+    global access_token
+    companyName =""
+    companyDescription=""
     authenticatedGetUrl = "https://api.linkedin.com/v1/company-search"
+    print "----------------------------->"
+    print access_token
     passin = {'oauth2_access_token' : access_token,
     'keywords':company_name
     }
     response2 = requests.get(authenticatedGetUrl,params=passin)    
     root = ET.fromstring(response2.text.encode('ascii', 'ignore'))
+    if root is None:
+        print "root is none"
+    companiesTag = root.find('companies')
+    if companiesTag is None:
+        print "companies is none"
+    else:
+        companyTag = companiesTag.find('company')
+        if companyTag is None:
+            print "companyTag is none"
+        else:   
+            companyID = companyTag.find('id').text
+            companySearchByID = "https://api.linkedin.com/v1/companies/"+companyID
+            companySearchByID = companySearchByID + ":(name,description)"
+            passin3 = {'oauth2_access_token' : access_token
+            }
     
-    companyID = root.find('companies').find('company').find('id').text
-    print companyID
-    companySearchByID = "https://api.linkedin.com/v1/companies/"+companyID
-    companySearchByID = companySearchByID + ":(name,description)"
-    passin3 = {'oauth2_access_token' : access_token
-    }
+            response3 = requests.get(companySearchByID,params=passin3)
+            root = ET.fromstring(response3.text.encode('ascii', 'ignore'))
     
-    response3 = requests.get(companySearchByID,params=passin3)
-    root = ET.fromstring(response3.text.encode('ascii', 'ignore'))
-    
-    companyName = root.find('name').text
-    companyDescription = root.find('description').text
+            companyName = root.find('name').text
+            companyDescription = root.find('description').text
     jsonOutput = {'name' : companyName, 'description' :companyDescription}
     #print "below is the first name"
     #print companyName
     #print "below is the description"
     #print companyDescription 
-    return jsonify(jsonOutput)
+    return jsonOutput
 
 # Error Handler
 @app.errorhandler(404)

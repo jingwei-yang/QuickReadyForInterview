@@ -14,7 +14,16 @@ Results | QuickReadyForInterview
     </ul>
 </div>
 <div id="linkedin">
-	<p></p>
+	<p  width = "500px" id="yihong">
+		
+	{%  if  api_data['linkedin']['name']  %}
+	     <b><font size="5" color="red">   Company Name : </font></b> {{api_data['linkedin']['name']}}
+	      <br>
+	      Company description :{{api_data['linkedin']['description']}}
+	</p>
+	{% else %}
+	  </p> There is no result found</p>
+	{% endif%}
 </div>
 <div id="facebook">
 	<ul>
