@@ -121,7 +121,7 @@
 
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container well">
 
         <!-- Page Heading -->
         <div class="row">
@@ -142,7 +142,7 @@
                     {% if item['picture'] != '' %}
                         src="{{ 'http://www.nytimes.com/' + item['picture'] }}"
                     {% else %}
-                        src="http://placehold.it/700x300"
+                        src="../static/img/img-not-found.png"
                     {% endif %}
                         alt="News Image" width="250" height="250">
                 </a>
