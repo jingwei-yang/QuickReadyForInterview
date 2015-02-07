@@ -1,5 +1,6 @@
 import requests
 import urllib
+import json
 
 
 def nytime_json(keyword='google'):
@@ -41,9 +42,8 @@ def nytime_json(keyword='google'):
                 'picture': thumb
                 })
 
-    return {'data': result} # warp into a dictionary
+    return json.dumps({'data': result}) # warp into a dictionary
 
 if __name__ == '__main__':
     result = nytime_json('google')
-    for it in result['data']:
-        print "**", it['message']
+    print result
