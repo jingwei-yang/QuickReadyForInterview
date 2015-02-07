@@ -61,8 +61,8 @@
         </div>
         <!-- /.container -->
     </nav>
-    
-    <div id="glassdoor">
+    <div class= "container">
+    <div id="glassdoor"  class="col-md-4">
     <a href='http://www.glassdoor.com/index.htm'>powered by <img src='http://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a>
     {% if api_data["glassdoor"]["companies"] %}
     <ul>
@@ -73,6 +73,17 @@
         {% if company.logo %}
         <img src="{{ company.logo }}" alt="Logo" />
         {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>There were no results found on Glassdoor</p>
+    {% endif %}
+</div>
+<div id="glassdoor2"  class="col-md-4">
+    {% if api_data["glassdoor"]["companies"] %}
+    <ul>
+    {% for company in api_data["glassdoor"]["companies"] %}
         <p>Number of Ratings: {{ company.number_of_ratings }}</p>
         <p>Overall Rating: {{ company.overall_rating }} {{ company.rating_description }}</p>
         <p>Culture and Values Rating: {{ company.culture_and_values_rating }}</p>
@@ -86,9 +97,6 @@
         <p>Number of Ratings: {{ company.ceo["numberOfRatings"] }}</p>
         <p>Approval Rate: {{ company.ceo["pctApprove"] }}</p>
         <p>Disapproval Rate: {{ company.ceo["pctDisapprove"] }}</p>
-        {% if company.ceo["image"] %}
-        <img src="{{ company.ceo['image'] }}" alt="CEO Image"/>
-        {% endif %}
         {% endif %}
         </li>
     {% endfor %}
@@ -97,7 +105,7 @@
     <p>There were no results found on Glassdoor</p>
     {% endif %}
 </div>
-<div id="linkedin">
+<div id="linkedin" class="col-md-4">
     <p  width = "500px" id="yihong">
 
     {%  if  api_data['linkedin']['name']  %}
@@ -116,6 +124,7 @@
         </li>
     {% endfor %}
     </ul>
+</div>
 </div>
 
 
@@ -188,7 +197,24 @@
             </div>
         {% endfor %}
         </div>
-
+		
+		
+	    {% for item in api_data["facebook"]["data"] %}
+	        <div class="row">
+	            <div class="col-md-4">
+	                <a href= {{ item["link"] }}>
+	                    <img class="img-responsive" src={{ item["picture"] }} alt="">
+	                </a>
+	            </div>
+	            <div class="col-md-8">
+	                <h3>{{ item["name"] }}</h3>
+	                <h4></h4>
+	                <p>{{ item["message"] }}</p>
+	                <a class="btn btn-primary" href= {{ item["link"] }}>Detail<span class="glyphicon glyphicon-chevron-right"></span></a>
+	            </div>
+	        </div>
+	    {% endfor %}
+		
     </div>
     <!-- /.container -->
 
