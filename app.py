@@ -8,11 +8,14 @@ app = Flask(__name__)
 # Allow Flask to autoreload when we make changes to `app.py`.
 app.config['DEBUG'] = True # Enable this only while testing!
 
-
-# Handle
 @app.route('/')
 def index():
     return render_template('index.html')
+ 
+@app.route('/echo/', methods=['GET'])
+def echo():
+    ret_data = {"value": request.args.get('echoValue')}
+    return jsonify(ret_data)
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
