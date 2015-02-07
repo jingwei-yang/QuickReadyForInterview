@@ -171,7 +171,7 @@ def facebook(keyword):
             abstract['updated_time'] = item['updated_time']
             info_collection.append(abstract);
     ret = {'data' : info_collection}
-    return jsonify(ret)
+    return ret
 
 
 def nytimes(keyword):
