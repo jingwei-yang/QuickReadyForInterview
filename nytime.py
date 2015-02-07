@@ -3,12 +3,6 @@ import urllib
 
 
 def nytime_json(keyword='google'):
-    '''
-    demo:
-    result = nytime_json('google')
-    for it in result:
-        print it['abstract']
-    '''
     base_url = r'http://api.nytimes.com/svc/search/v2/articlesearch.json'
     query = keyword
     begin_date = r'20100101'
@@ -51,5 +45,5 @@ def nytime_json(keyword='google'):
 
 if __name__ == '__main__':
     result = nytime_json('google')
-    for it in result:
+    for it in result['data']:
         print "**", it['message']
