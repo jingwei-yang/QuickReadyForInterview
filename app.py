@@ -152,8 +152,25 @@ def glassdoor(keyword):
 def linkedin(keyword):
     return {}
 
+
 def facebook(keyword):
-    return {}
+    TOKEN ='575731909230644|ZuJwTeYLANGBOsZFWPczcx8JDZo'
+    parameters = {'access_token': TOKEN}
+    response = requests.get('https://graph.facebook.com/'+ keyword + '/feed', params=parameters)
+    response_dict = response.json()
+    info_collection = []
+    for item in response_dict['data']:
+        abstract = {}
+        if (item.has_key('status_type') and item['status_type'] == "shared_story") :
+            abstract['link'] = item['link']
+                abstract['message'] = item['message']
+                abstract['name'] = item['name']
+                abstract['picture'] = item['picture']
+                abstract['updated_time'] = item['updated_time']
+                info_collection.append
+    ret = {'data' : info_collection}
+    return ret
+
 
 def nytimes(keyword):
     result = nytime.nytime_json(keyword)
