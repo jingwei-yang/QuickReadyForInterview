@@ -22,7 +22,7 @@ def get_facebook_info(company_name):
         if (item.has_key('status_type') and item['status_type'] == "shared_story") :
             abstract['link'] = item['link']
             abstract['message'] = item['message']
-            abstract['name'] = item['name']
+            abstract['headline'] = item['name']
             abstract['picture'] = item['picture']
             info_collection.append(abstract);
     ret = {'data' : info_collection}

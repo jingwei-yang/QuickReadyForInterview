@@ -40,11 +40,11 @@ def nytime_json(keyword='google'):
                           if x['subtype']=='thumbnail'),
                          '')
             result.append({
-                'web_url': web_url,
+                'link': web_url,
                 'headline': headline,
-                'paragraph': paragraph,
+                'message': paragraph,
                 'pub_date': pub_date,
-                'thumb': thumb
+                'picture': thumb
                 })
 
     return {'data': result} # warp into a dictionary
@@ -52,4 +52,4 @@ def nytime_json(keyword='google'):
 if __name__ == '__main__':
     result = nytime_json('google')
     for it in result:
-        print "**", it['paragraph']
+        print "**", it['message']
