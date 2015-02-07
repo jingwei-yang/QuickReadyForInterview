@@ -1,7 +1,8 @@
 import requests
 import urllib
 import json
-
+import HTMLParser
+h = HTMLParser.HTMLParser()
 
 def nytime_json(keyword='google'):
     base_url = r'http://api.nytimes.com/svc/search/v2/articlesearch.json'
@@ -36,7 +37,7 @@ def nytime_json(keyword='google'):
                          '')
             result.append({
                 'link': web_url,
-                'headline': headline,
+                'headline': h.unescape(headline),
                 'message': paragraph,
                 'pub_date': pub_date,
                 'picture': thumb
