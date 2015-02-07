@@ -63,48 +63,6 @@ def getToke():
     print url_for('static', filename='style.css')
     return redirect(url_for('search'),302)
 
-@app.route('/searchCompany/<company_name>')
-def goCompany(company_name):
-    global access_token
-    companyName =None
-    companyDescription=None
-    authenticatedGetUrl = "https://api.linkedin.com/v1/company-search"
-    print "----------------------------->"
-    print access_token
-    passin = {'oauth2_access_token' : access_token,
-    'keywords':company_name
-    }
-    response2 = requests.get(authenticatedGetUrl,params=passin)
-    root = ET.fromstring(response2.text.encode('ascii', 'ignore'))
-    if root is None:
-        print "root is none"
-    companiesTag = root.find('companies')
-    if companiesTag is None:
-        print "companies is none"
-    else:
-        companyTag = companiesTag.find('company')
-        if companyTag is None:
-            print "companyTag is none"
-        else:
-            companyID = companyTag.find('id').text
-            companySearchByID = "https://api.linkedin.com/v1/companies/"+companyID
-            companySearchByID = companySearchByID + ":(name,description)"
-            passin3 = {'oauth2_access_token' : access_token
-            }
-
-            response3 = requests.get(companySearchByID,params=passin3)
-            root = ET.fromstring(response3.text.encode('ascii', 'ignore'))
-
-            companyName = root.find('name').text
-            companyDescription = root.find('description').text
-
-    jsonOutput = {'name' : companyName, 'description' :companyDescription}
-    #print "below is the first name"
-    #print companyName
-    #print "below is the description"
-    #print companyDescription
-    return jsonOutput
-    #print companyDescription
 
 # Error Handler
 @app.errorhandler(404)
@@ -168,9 +126,48 @@ def glassdoor(keyword):
     glassdoor_response_dict = process_glassdoor_response(glassdoor_response_dict, keyword)
     return glassdoor_response_dict
 
-def linkedin(keyword):
-    return {}
+@app.route('/searchCompany/<company_name>')
+def goCompany(company_name):
+    global access_token
+    companyName =None
+    companyDescription=None
+    authenticatedGetUrl = "https://api.linkedin.com/v1/company-search"
+    print "----------------------------->"
+    print access_token
+    passin = {'oauth2_access_token' : access_token,
+    'keywords':company_name
+    }
+    response2 = requests.get(authenticatedGetUrl,params=passin)
+    root = ET.fromstring(response2.text.encode('ascii', 'ignore'))
+    if root is None:
+        print "root is none"
+    companiesTag = root.find('companies')
+    if companiesTag is None:
+        print "companies is none"
+    else:
+        companyTag = companiesTag.find('company')
+        if companyTag is None:
+            print "companyTag is none"
+        else:
+            companyID = companyTag.find('id').text
+            companySearchByID = "https://api.linkedin.com/v1/companies/"+companyID
+            companySearchByID = companySearchByID + ":(name,description)"
+            passin3 = {'oauth2_access_token' : access_token
+            }
 
+            response3 = requests.get(companySearchByID,params=passin3)
+            root = ET.fromstring(response3.text.encode('ascii', 'ignore'))
+
+            companyName = root.find('name').text
+            companyDescription = root.find('description').text
+
+    jsonOutput = {'name' : companyName, 'description' :companyDescription}
+    #print "below is the first name"
+    #print companyName
+    #print "below is the description"
+    #print companyDescription
+    return jsonOutput
+    #print companyDescription
 
 def facebook(keyword):
     #Returns the list of updates of a company.

@@ -30,7 +30,7 @@ def nytime_json(keyword='google'):
             web_url = it['web_url']
             headline = it['headline']['main'].encode('ascii', "ignore")
             paragraph = it['lead_paragraph'].encode('ascii', "ignore")
-            pub_date = it['pub_date']
+            pub_date = it['pub_date'][:10]
             thumb = next((x['url']
                           for x in it['multimedia']
                           if x['subtype']=='thumbnail'),
