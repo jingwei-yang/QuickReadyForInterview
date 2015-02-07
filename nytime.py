@@ -1,24 +1,49 @@
 import requests
 import urllib
+import json
 
 
 def nytime_json(keyword='google'):
-    '''
-    demo:
-    result = nytime_json('google')
-    for it in result:
-        if it['abstract']:
-            print it['abstract'].encode('UTF-8') 
-    '''
     base_url = r'http://api.nytimes.com/svc/search/v2/articlesearch.json'
-    query = r'keyword'
+    query = keyword
     begin_date = r'20100101'
-    fq = r'news_desk:("Business" "Technology")'
+    fq = r'news_desk:("Business" "Technology") AND headline:("%s")' % keyword
     api_key = r'7182809a0aab73c3c0fb8b6d0af04c31:5:71187653'
+    result = []
 
-    payload = {'q': query, 'fq': fq, 'begin_date': begin_date, 'api-key': api_key}
+    payload = {
+        'q': query,
+        'fq': fq,
+        'page': 0,
+        'begin_date': begin_date,
+        'api-key': api_key
+    }
 
-    response = requests.get(base_url, params=payload).json()
-    result = response['response']['docs']
+    for p in range(3):
+        payload['page'] = p
+        response = requests.get(base_url, params=payload).json()
+        result0 = response['response']['docs']
 
-    return result
+        for it in result0:
+            if it['lead_paragraph'] is None: continue
+            web_url = it['web_url']
+            headline = it['headline']['main'].encode('ascii', "ignore")
+            paragraph = it['lead_paragraph'].encode('ascii', "ignore")
+            pub_date = it['pub_date']
+            thumb = next((x['url']
+                          for x in it['multimedia']
+                          if x['subtype']=='thumbnail'),
+                         '')
+            result.append({
+                'link': web_url,
+                'headline': headline,
+                'message': paragraph,
+                'pub_date': pub_date,
+                'picture': thumb
+                })
+
+    return json.dumps({'data': result}) # warp into a dictionary
+
+if __name__ == '__main__':
+    result = nytime_json('google')
+    print result
