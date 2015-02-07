@@ -31,7 +31,8 @@ def results():
         data['nytimes'] = nytimes(keyword)
         data['facebook'] = facebook(keyword)
         return render_template('results.html', api_data=data)
-    return render_template('search.html')
+    else:
+        return render_template('search.html')
 
 
 # Login related pages
@@ -59,10 +60,11 @@ def getToke():
     access_token = response_dict['access_token']
     print "this is  jinggggggggggg wei"
     print access_token
+    print url_for('static', filename='style.css')
     return redirect(url_for('search'),302)
 
 @app.route('/searchCompany/<company_name>')
-def goCompany(company_name):    
+def goCompany(company_name):
     global access_token
     companyName =None
     companyDescription=None
@@ -83,16 +85,16 @@ def goCompany(company_name):
         companyTag = companiesTag.find('company')
         if companyTag is None:
             print "companyTag is none"
-        else:   
+        else:
             companyID = companyTag.find('id').text
             companySearchByID = "https://api.linkedin.com/v1/companies/"+companyID
             companySearchByID = companySearchByID + ":(name,description)"
             passin3 = {'oauth2_access_token' : access_token
             }
-    
+
             response3 = requests.get(companySearchByID,params=passin3)
             root = ET.fromstring(response3.text.encode('ascii', 'ignore'))
-    
+
             companyName = root.find('name').text
             companyDescription = root.find('description').text
 
@@ -100,7 +102,7 @@ def goCompany(company_name):
     #print "below is the first name"
     #print companyName
     #print "below is the description"
-    #print companyDescription 
+    #print companyDescription
     return jsonOutput
     #print companyDescription
 
