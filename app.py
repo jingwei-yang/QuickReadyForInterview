@@ -22,8 +22,11 @@ def search():
 def results():
     data = {}
     if request.method == "POST":
+        keyword = request.form['company-name']
+        data['glassdoor'] = glassdoor(keyword)
         pass
-    return render_template('results.html', api_data=data)
+        return render_template('results.html', api_data=data)
+    return render_template('search.html')
 
 
 # Login related pages

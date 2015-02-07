@@ -32,8 +32,10 @@
       <div class="row">
         <div class="span12">
           <h2>Type in the company's name you are interviewing with.</h2>
-          <input type="text" name="company-name" placeholder="ex. Google" class="cform-text" size="40" title="your email">
-          <input id="submitBtn" type="submit" value="Search" class="cform-submit" href="/my-search/">
+          <form action="/results" method="post">
+            <input type="text" name="company-name" placeholder="ex. Google" class="cform-text" size="40" required/>
+            <input id="submitBtn" type="submit" value="Search" class="cform-submit">
+          </form>
         </div>
       </div>
     </div>
