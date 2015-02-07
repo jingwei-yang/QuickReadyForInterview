@@ -1,14 +1,9 @@
 import requests
 import urllib
+import json
 
 
 def nytime_json(keyword='google'):
-    '''
-    demo:
-    result = nytime_json('google')
-    for it in result:
-        print it['abstract']
-    '''
     base_url = r'http://api.nytimes.com/svc/search/v2/articlesearch.json'
     query = keyword
     begin_date = r'20100101'
@@ -32,24 +27,23 @@ def nytime_json(keyword='google'):
         for it in result0:
             if it['lead_paragraph'] is None: continue
             web_url = it['web_url']
-            headline = it['headline']['main'].encode('UTF-8')
-            paragraph = it['lead_paragraph'].encode('UTF-8')
+            headline = it['headline']['main'].encode('ascii', "ignore")
+            paragraph = it['lead_paragraph'].encode('ascii', "ignore")
             pub_date = it['pub_date']
             thumb = next((x['url']
                           for x in it['multimedia']
                           if x['subtype']=='thumbnail'),
                          '')
             result.append({
-                'web_url': web_url,
+                'link': web_url,
                 'headline': headline,
-                'paragraph': paragraph,
+                'message': paragraph,
                 'pub_date': pub_date,
-                'thumb': thumb
+                'picture': thumb
                 })
 
-    return result
+    return json.dumps({'data': result}) # warp into a dictionary
 
 if __name__ == '__main__':
     result = nytime_json('google')
-    for it in result:
-        print "**", it['paragraph']
+    print result

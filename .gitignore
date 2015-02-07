@@ -1,3 +1,4 @@
 Vagrantfile
 bootstrap.sh
 .vagrant/*
+*.pyc

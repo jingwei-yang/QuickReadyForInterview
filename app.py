@@ -8,6 +8,8 @@ app = Flask(__name__)
 # Allow Flask to autoreload when we make changes to `app.py`.
 app.config['DEBUG'] = True # Enable this only while testing!
 
+
+# Handle
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -24,11 +26,10 @@ def search_nytimes():
     if request.method == "POST":
         keyword = request.form["user_search"]
         result = nytime.nytime_json(keyword)
-        return render_template("results.html", api_data=result)
+        return render_template("newsresults.html", api_data=result)
     else:
         return render_template("search.html")
 
-# Handle
 @app.errorhandler(404)
 def not_found(error):
     return "Sorry, I haven't coded that yet.", 404
