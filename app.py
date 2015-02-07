@@ -25,7 +25,10 @@ def search():
 
 @app.route('/results', methods=["GET", "POST"])
 def results():
-    return render_template('results.html')
+    data = {}
+    if request.method == "POST":
+        pass
+    return render_template('results.html', api_data=data)
 
 # @app.route('/searchx', methods=["GET", "POST"])
 # def searchx():
