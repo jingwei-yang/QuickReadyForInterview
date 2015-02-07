@@ -14,7 +14,7 @@ Results | QuickReadyForInterview
         <p>Website:{{ company.website }}</p>
         <p>Industry:{{ company.industry }}</p>
         {% if company.logo %}
-        <img src={{ company.logo }} alt="Logo" />
+        <img src="{{ company.logo }}" alt="Logo" />
         {% endif %}
         <p>Number of Ratings:{{ company.number_of_ratings }}</p>
         <p>Overall Rating:{{ company.overall_rating }} {{ company.rating_description }}</p>
@@ -30,7 +30,7 @@ Results | QuickReadyForInterview
         <p>Approval Rate:{{ company.ceo["pctApprove"] }}</p>
         <p>Disapproval Rate:{{ company.ceo["pctDisapprove"] }}</p>
         {% if company.ceo["image"] %}
-        <img src={{ company.ceo["image"] }} alt="CEO Image"/>
+        <img src="{{ company.ceo['image'] }}" alt="CEO Image"/>
         {% endif %}
         {% endif %}
         </li>
