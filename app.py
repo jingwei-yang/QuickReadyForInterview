@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 import requests
+import nytime
 
 # Create an Flask app object.  We'll use this to create the routes.
 app = Flask(__name__)
@@ -8,8 +9,8 @@ app = Flask(__name__)
 app.config['DEBUG'] = True # Enable this only while testing!
 
 @app.route('/')
-def hello():
-    return render_template('hello.html')
+def index():
+    return render_template('index.html')
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
@@ -22,6 +23,7 @@ def search():
     else:
         return render_template("search.html")
 
+<<<<<<< HEAD
 def process_glassdoor_response(api_dict, company_name):
     filtered_dict = {"companies":[]}
     response_dict = api_dict.get("response")
@@ -30,6 +32,16 @@ def process_glassdoor_response(api_dict, company_name):
         if company_name.lower() in employer.get("name").lower():
             filtered_dict["companies"].append(employer)
     return filtered_dict
+=======
+@app.route('/nytimes', methods=["GET", "POST"])
+def search_nytimes():
+    if request.method == "POST":
+        keyword = request.form["user_search"]
+        result = nytime.nytime_json(keyword)
+        return render_template("results.html", api_data=result)
+    else:
+        return render_template("search.html")
+>>>>>>> origin/master
 
 # Handle
 @app.errorhandler(404)
