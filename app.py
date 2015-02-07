@@ -155,6 +155,7 @@ def process_glassdoor_response(api_dict, company_name):
             if employer.get("ceo"):
                 filtered_employer["ceo"] = employer.get("ceo")
             filtered_dict["companies"].append(filtered_employer)
+            return filtered_dict
     return filtered_dict
 
 # Backend API
@@ -176,6 +177,9 @@ def facebook(keyword):
     response = requests.get('https://graph.facebook.com/'+ keyword + '/feed', params=parameters)
     response_dict = response.json()
     info_collection = []
+    ret = {'data' : info_collection}
+    if response_dict.has_key('error') :
+        return ret
     for item in response_dict['data']:
         abstract = {}
         if (item.has_key('status_type') and item.has_key('name') and item.has_key('message') and item['status_type'] == "shared_story") :
@@ -185,7 +189,6 @@ def facebook(keyword):
             abstract['picture'] = item['picture']
             abstract['updated_time'] = item['updated_time']
             info_collection.append(abstract);
-    ret = {'data' : info_collection}
     return ret
 
 
