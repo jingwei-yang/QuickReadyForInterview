@@ -60,6 +60,7 @@ def getToke():
     access_token = response_dict['access_token']
     print "this is  jinggggggggggg wei"
     print access_token
+    print url_for('static', filename='style.css')
     return redirect(url_for('search'),302)
 
 @app.route('/searchCompany/<company_name>')
