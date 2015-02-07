@@ -24,7 +24,9 @@ def results():
     if request.method == "POST":
         keyword = request.form['company-name']
         data['glassdoor'] = glassdoor(keyword)
-        pass
+        data['linkedin'] = linkedin(keyword)
+        data['nytimes'] = nytimes(keyword)
+        data['facebook'] = facebook(keyword)
         return render_template('results.html', api_data=data)
     return render_template('search.html')
 
@@ -35,7 +37,7 @@ def login():
     pass
 
 @app.route('/linkedin')
-def linkedin():
+def login_done():
     pass
 
 
