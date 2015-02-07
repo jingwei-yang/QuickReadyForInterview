@@ -21,10 +21,11 @@ def get_facebook_info(company_name):
         abstract = {}
         if (item.has_key('status_type') and item['status_type'] == "shared_story") :
             abstract['link'] = item['link']
-            abstract['message'] = item['message']
-            abstract['name'] = item['name']
-            abstract['picture'] = item['picture']
-            info_collection.append(abstract);
+                abstract['message'] = item['message']
+                abstract['name'] = item['name']
+                abstract['picture'] = item['picture']
+                abstract['updated_time'] = item['updated_time']
+                info_collection.append(abstract);
     ret = {'data' : info_collection}
     return jsonify(ret);
 
