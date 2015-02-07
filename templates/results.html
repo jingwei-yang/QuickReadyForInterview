@@ -73,11 +73,7 @@
                 </h1>
             </div>
         </div>
-<!--    <ul>
-    <li><a href="#fragment-1"><span>One</span></a></li>
-    <li><a href="#fragment-2"><span>Two</span></a></li>
-    <li><a href="#fragment-3"><span>Three</span></a></li>
-    </ul>-->
+
     <div id="fragment-1">
     <div class= "container">
     <div id="glassdoor"  class="col-md-4">
@@ -87,7 +83,7 @@
     {% if company.logo %}
         <img src="{{ company.logo }}" alt="Logo" />
         {% endif %}
-        <p>Website: {{ company.website }}</p>
+        <p>Website: <a href="http://{{ company.website }}">{{ company.website }}</a></p>
         <p>Industry: {{ company.industry }}</p>
         {% if company.ceo %}
         <p>{{ company.ceo["title"] }}: {{ company.ceo["name"] }}</p>
