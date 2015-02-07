@@ -109,6 +109,7 @@ def get_posts(company_name):
     response_dict = response.json()
     return jsonify(response_dict)
 
+# for testing glassdoor search
 @app.route('/glassdoor/<search_query>')
 def search_glassdoor(search_query):
     user_agent = {'User-agent': request.headers.get('User-Agent')}
@@ -118,28 +119,29 @@ def search_glassdoor(search_query):
     return jsonify(glassdoor_response_dict)
 
 def process_glassdoor_response(api_dict, company_name):
-    if api_dict.get("success") is False:
-        return {"success":False,"status":"Failed to retrieve company data"}
     filtered_dict = {"companies":[]}
+    if api_dict.get("success") is False:
+        return filtered_dict
     response_dict = api_dict.get("response")
     if not response_dict:
-        return {"success":False,"status":"Failed to retrieve company data"}
+        return filtered_dict
     employers_list = response_dict.get("employers")
     if not employers_list:
-        return {"success":False,"status":"no matching companies"}
+        return filtered_dict
     for employer in employers_list:
         if company_name.lower() in employer.get("name").lower():
             filtered_employer = {"name":employer.get("name"),"website":employer.get("website"),
-            "industry":employer.get("industry"),"logo":employer.get("squareLogo")}
-            ceo = employer.get("ceo")
-            if ceo:
-                filtered_ceo = {"name":ceo.get("name"),"title":ceo.get("title")}
-                if ceo.get("image"):
-                    filtered_ceo["image"] = ceo.get("image")
-                filtered_employer["ceo"] = filtered_ceo
+            "industry":employer.get("industry"),"logo":employer.get("squareLogo"),"number_of_ratings":employer.get("numberOfRatings"),
+            "overall_rating":employer.get("overallRating"),"rating_description":employer.get("ratingDescription"),
+            "culture_and_values_rating":employer.get("cultureAndValuesRating"),
+            "senior_leadership_rating":employer.get("seniorLeadershipRating"),
+            "compensation_and_benefits_rating":employer.get("compensationAndBenefitsRating"),
+            "career_opportunities_rating":employer.get("careerOpportunitiesRating"),
+            "work_life_balance_rating":employer.get("workLifeBalanceRating"),
+            "recommend_to_friend_rating":employer.get("recommendToFriendRating")}
+            if employer.get("ceo"):
+                filtered_employer["ceo"] = employer.get("ceo")
             filtered_dict["companies"].append(filtered_employer)
-    if not filtered_dict.get("companies"):
-        return {"success":False,"status":"no matching companies"}
     return filtered_dict
 
 # Backend API
