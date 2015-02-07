@@ -169,8 +169,8 @@ def linkedin(keyword):
     return {}
 
 
-def facebook(keyword):
-    #Returns the list of updates of a company's facebook homepage.
+def get_facebook_info(keyword):
+    #Returns the list of updates of a company.
     TOKEN ='575731909230644|ZuJwTeYLANGBOsZFWPczcx8JDZo'
     parameters = {'access_token': TOKEN}
     response = requests.get('https://graph.facebook.com/'+ keyword + '/feed', params=parameters)
@@ -178,7 +178,7 @@ def facebook(keyword):
     info_collection = []
     for item in response_dict['data']:
         abstract = {}
-        if (item.has_key('status_type') and item['status_type'] == "shared_story") :
+        if (item.has_key('status_type') and item.has_key('name') and item.has_key('message') and item['status_type'] == "shared_story") :
             abstract['link'] = item['link']
             abstract['message'] = item['message']
             abstract['name'] = item['name']
