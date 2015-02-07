@@ -19,11 +19,11 @@ def index():
 #     ret_data = {"value": request.args.get('echoValue')}
 #     return jsonify(ret_data)
 
-@app.route('/search')
+@app.route('/search', methods=["GET", "POST"])
 def search():
     return render_template('search.html')
 
-@app.route('/results')
+@app.route('/results', methods=["GET", "POST"])
 def results():
     return render_template('results.html')
 
@@ -46,22 +46,19 @@ def not_found(error):
 def internal_server_error(error):
     return "My code broke, my bad.", 500
 
+
 # Backend API
-@app.route('/glassdoor', methods=["GET", "POST"])
 def glassdoor():
-    return "{}"
+    return {}
 
-@app.route('/linkedin', methods=["GET", "POST"])
 def linkedin():
-    return "{}"
+    return {}
 
-@app.route('/facebook', methods=["GET", "POST"])
 def facebook():
-    return "{}"
+    return {}
 
-@app.route('/nytimes', methods=["GET", "POST"])
 def nytimes():
-    return "{}"
+    return {}
 
 # @app.route('/info/<company_name>')
 # def get_posts(company_name):
