@@ -1,10 +1,30 @@
-{% extends "search.html" %}
-<!-- search.html -->
-{% block results %}
-<ul>
-{% for item in api_data %}
-    <li>
-    </li>
-{% endfor %}
-</ul>
+{% extends "base.html" %}
+<!-- results.html -->
+{% block title %}
+Results | QuickReadyForInterview
+{% endblock %}
+
+{% block body %}
+<div id="glassdoor">
+	<p></p>
+</div>
+<div id="linkedin">
+	<p></p>
+</div>
+<div id="facebook">
+	<ul>
+	{% for item in api_data %}
+	    <li>
+	    </li>
+	{% endfor %}
+	</ul>
+</div>
+<div id="nytimes">
+	<ul>
+	{% for item in api_data %}
+	    <li>
+	    </li>
+	{% endfor %}
+	</ul>
+</div>
 {% endblock %}
