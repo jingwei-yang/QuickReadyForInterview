@@ -116,14 +116,7 @@
     {% endfor %}
     </ul>
 </div>
-<div id="nytimes">
-    <ul>
-    {% for item in api_data %}
-        <li>
-        </li>
-    {% endfor %}
-    </ul>
-</div>
+
 
 
     <!-- Page Content -->
@@ -141,12 +134,12 @@
 
         <!-- Project One -->
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <a href="#">
                     <img class="img-responsive" src="http://placehold.it/700x300" alt="">
                 </a>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <h3>Project One</h3>
                 <h4>Subheading</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
@@ -168,7 +161,32 @@
             </div>
         </div>
 
-
+        <div id="nytimes">
+        {% for item in api_data['nytimes']['data'] %}
+            <div class="row">
+            <div class="col-md-2">
+                <a href="#">
+                    <img class="img-responsive"
+                    {% if item['picture'] != '' %}
+                        src="{{ 'http://www.nytimes.com/' + item['picture'] }}"
+                    {% else %}
+                        src="http://placehold.it/700x300"
+                    {% endif %}
+                        alt="News Image" width="250" height="250">
+                </a>
+            </div>
+            <div class="col-md-10">
+                <h3>{{ item['headline'] }}</h3>
+                <h4>{{ item['pub_date'] }}</h4>
+                <p>{{ item['message'] }}</p>
+                <a class="btn btn-primary" href="{{ item['link'] }}">
+                    View Project
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+            </div>
+        {% endfor %}
+        </div>
 
     </div>
     <!-- /.container -->
