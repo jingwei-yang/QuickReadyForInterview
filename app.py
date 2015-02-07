@@ -48,16 +48,16 @@ def internal_server_error(error):
 
 
 # Backend API
-def glassdoor():
+def glassdoor(keyword):
     return {}
 
-def linkedin():
+def linkedin(keyword):
     return {}
 
-def facebook():
+def facebook(keyword):
     return {}
 
-def nytimes():
+def nytimes(keyword):
     return {}
 
 # @app.route('/info/<company_name>')
