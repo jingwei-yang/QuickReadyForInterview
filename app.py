@@ -107,7 +107,8 @@ def facebook(keyword):
     return {}
 
 def nytimes(keyword):
-    return {}
+    result = nytime.nytime_json(keyword)
+    return result
 
 # If the user executed this python file (typed `python app.py` in their
 # terminal), run our app.
