@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template, request
-import requests
+#import requests
 
 # Create an Flask app object.  We'll use this to create the routes.
 app = Flask(__name__)
@@ -8,8 +8,14 @@ app = Flask(__name__)
 app.config['DEBUG'] = True # Enable this only while testing!
 
 @app.route('/')
-def hello():
-    return render_template('hello.html')
+def index():
+    return render_template('index.html')
+ 
+@app.route('/echo/', methods=['GET'])
+def echo():
+    ret_data = {"value": request.args.get('echoValue')}
+    return jsonify(ret_data)
+ 
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
