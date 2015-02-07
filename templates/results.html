@@ -188,7 +188,24 @@
             </div>
         {% endfor %}
         </div>
-
+		
+		
+	    {% for item in api_data["facebook"]["data"] %}
+	        <div class="row">
+	            <div class="col-md-4">
+	                <a href= {{ item["link"] }}>
+	                    <img class="img-responsive" src={{ item["picture"] }} alt="">
+	                </a>
+	            </div>
+	            <div class="col-md-8">
+	                <h3>{{ item["name"] }}</h3>
+	                <h4></h4>
+	                <p>{{ item["message"] }}</p>
+	                <a class="btn btn-primary" href= {{ item["link"] }}>Detail<span class="glyphicon glyphicon-chevron-right"></span></a>
+	            </div>
+	        </div>
+	    {% endfor %}
+		
     </div>
     <!-- /.container -->
 
