@@ -32,8 +32,8 @@ def nytime_json(keyword='google'):
         for it in result0:
             if it['lead_paragraph'] is None: continue
             web_url = it['web_url']
-            headline = it['headline']['main'].encode('UTF-8')
-            paragraph = it['lead_paragraph'].encode('UTF-8')
+            headline = it['headline']['main'].encode('ascii', "ignore")
+            paragraph = it['lead_paragraph'].encode('ascii', "ignore")
             pub_date = it['pub_date']
             thumb = next((x['url']
                           for x in it['multimedia']
@@ -47,7 +47,7 @@ def nytime_json(keyword='google'):
                 'thumb': thumb
                 })
 
-    return result
+    return {'data': result} # warp into a dictionary
 
 if __name__ == '__main__':
     result = nytime_json('google')
