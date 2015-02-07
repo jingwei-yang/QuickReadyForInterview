@@ -25,6 +25,17 @@ def results():
         pass
     return render_template('results.html', api_data=data)
 
+
+# Login related pages
+@app.route('/login')
+def login():
+    pass
+
+@app.route('/linkedin')
+def linkedin():
+    pass
+
+
 # Error Handler
 @app.errorhandler(404)
 def not_found(error):
