@@ -142,50 +142,58 @@
         <!-- /.row -->
     <div id="fragment-2">
         <div id="nytimes">
-        {% for item in api_data['nytimes']['data'] %}
-            <div class="row">
-            <div class="col-md-2">
-                <a href="#">
-                    <img class="img-responsive"
-                    {% if item['picture'] != '' %}
-                        src="{{ 'http://www.nytimes.com/' + item['picture'] }}"
-                    {% else %}
-                        src="{{ url_for('static', filename='img/img-not-found.png') }}"
-                    {% endif %}
-                        alt="News Image" width="250" height="250">
-                </a>
-            </div>
-            <div class="col-md-10">
-                <h3>{{ item['headline'] }}</h3>
-                <h4>{{ item['pub_date'] }}</h4>
-                <p>{{ item['message'] }}</p>
-                <a class="btn btn-primary" href="{{ item['link'] }}">
-                    View Details
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
-            </div>
-        {% endfor %}
+        {% if api_data['nytimes']['data']|count > 0 %}
+            {% for item in api_data['nytimes']['data'] %}
+                <div class="row">
+                <div class="col-md-2">
+                    <a href="#">
+                        <img class="img-responsive"
+                        {% if item['picture'] != '' %}
+                            src="{{ 'http://www.nytimes.com/' + item['picture'] }}"
+                        {% else %}
+                            src="{{ url_for('static', filename='img/img-not-found.png') }}"
+                        {% endif %}
+                            alt="News Image" width="250" height="250">
+                    </a>
+                </div>
+                <div class="col-md-10">
+                    <h3>{{ item['headline'] }}</h3>
+                    <h4>{{ item['pub_date'] }}</h4>
+                    <p>{{ item['message'] }}</p>
+                    <a class="btn btn-primary" href="{{ item['link'] }}">
+                        View Details
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>There is no result found<p>
+        {% endif %}
     </br>
         </div>
     </div>
     <div id="fragment-3">
-	    {% for item in api_data["facebook"]["data"] %}
-	        <div class="row">
-	            <div class="col-md-2">
-	                <a href= {{ item["link"] }}>
-	                    <img class="img-responsive" src={{ item["picture"] }} alt="">
-	                </a>
-	            </div>
-	            <div class="col-md-10">
-	                <h3>{{ item["name"] }}</h3>
-	                <h4></h4>
-	                <p>{{ item["message"] }}</p>
-	                <a class="btn btn-primary" href= {{ item["link"] }}>View Details<span class="glyphicon glyphicon-chevron-right"></span></a>
-	            </div>
-            </br>
-	        </div>
-	    {% endfor %}
+        {% if api_data['facebook']['data']|count > 0 %}
+            {% for item in api_data["facebook"]["data"] %}
+                <div class="row">
+                    <div class="col-md-2">
+                        <a href= {{ item["link"] }}>
+                            <img class="img-responsive" src={{ item["picture"] }} alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-10">
+                        <h3>{{ item["name"] }}</h3>
+                        <h4></h4>
+                        <p>{{ item["message"] }}</p>
+                        <a class="btn btn-primary" href= {{ item["link"] }}>View Details<span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                </br>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>There is no result found<p>
+        {% endif %}
     </div>
 
     <!-- /.container -->
