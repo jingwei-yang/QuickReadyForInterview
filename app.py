@@ -169,7 +169,7 @@ def linkedin(keyword):
     return {}
 
 
-def get_facebook_info(keyword):
+def facebook(keyword):
     #Returns the list of updates of a company.
     TOKEN ='575731909230644|ZuJwTeYLANGBOsZFWPczcx8JDZo'
     parameters = {'access_token': TOKEN}
