@@ -39,13 +39,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#" id="General">General</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="#" id="News">News</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="#" id="Social">Social</a>
                     </li>
                 </ul>
                 <form class="navbar-form pull-right" role="search">
@@ -61,6 +61,13 @@
         </div>
         <!-- /.container -->
     </nav>
+<div id="tabs">
+<!--    <ul>
+    <li><a href="#fragment-1"><span>One</span></a></li>
+    <li><a href="#fragment-2"><span>Two</span></a></li>
+    <li><a href="#fragment-3"><span>Three</span></a></li>
+    </ul>-->
+    <div id="fragment-1">
     <div class= "container">
     <div id="glassdoor"  class="col-md-4">
     <a href='http://www.glassdoor.com/index.htm'>powered by <img src='http://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a>
@@ -77,7 +84,7 @@
         <p>{{ company.ceo["title"] }}: {{ company.ceo["name"] }}</p>
         <p>Approval Rate: {{ company.ceo["pctApprove"] }}</p>
         {% endif %}
-        
+
     {% endfor %}
     </ul>
     {% else %}
@@ -96,7 +103,7 @@
         <p>Compensation and Benefits Rating: {{ company.compensation_and_benefits_rating }}</p>
         <p>Career Opportunities Rating: {{ company.career_opportunities_rating }}</p>
         <p>Work Life Balance Rating: {{ company.work_life_balance_rating }}</p>
-        <p>Recommend to Friend Rating: {{ company.recommend_to_friend_rating }}</p>  
+        <p>Recommend to Friend Rating: {{ company.recommend_to_friend_rating }}</p>
         </li>
     {% endfor %}
     </ul>
@@ -117,7 +124,7 @@
 </div>
 
 </div>
-
+</div>
 
 
     <!-- Page Content -->
@@ -132,7 +139,7 @@
             </div>
         </div>
         <!-- /.row -->
-
+<div id="fragment-2">
         <div id="nytimes">
         {% for item in api_data['nytimes']['data'] %}
             <div class="row">
@@ -160,8 +167,8 @@
         {% endfor %}
     </br>
         </div>
-		
-		
+</div>
+<div id="fragment-3">
 	    {% for item in api_data["facebook"]["data"] %}
 	        <div class="row">
 	            <div class="col-md-2">
@@ -178,24 +185,47 @@
             </br>
 	        </div>
 	    {% endfor %}
-		
     </div>
+</div>
     <!-- /.container -->
+</div>
+
     <footer>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Quick Ready For Interview 2015</p>
-                </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <p>Copyright &copy; Quick Ready For Interview 2015</p>
             </div>
-            <!-- /.row -->
-        </footer>
+        </div>
+        <!-- /.row -->
+    </footer>
 
     <!-- jQuery -->
-    <script src="../static/js/jquery.js"></script>
-
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="../static/js/bootstrap.min.js"></script>
-
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+    $( "#General" ).click(function() {
+        $("#fragment-1").css('display', 'block');
+        $("#fragment-2").css('display', 'none');
+        $("#fragment-3").css('display', 'none');
+    });
+    $( "#News" ).click(function() {
+        $("#fragment-1").css('display', 'none');
+        $("#fragment-2").css('display', 'block');
+        $("#fragment-3").css('display', 'none');
+    });
+    $( "#Social" ).click(function() {
+        $("#fragment-1").css('display', 'none');
+        $("#fragment-2").css('display', 'none');
+        $("#fragment-3").css('display', 'block');
+    });
+    $(function () {
+        $("#fragment-1").css('display', 'block');
+        $("#fragment-2").css('display', 'none');
+        $("#fragment-3").css('display', 'none');
+    });
+    </script>
 </body>
 
 </html>
