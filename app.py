@@ -41,6 +41,12 @@ def get_posts(company_name):
     response_dict = response.json()
     return jsonify(response_dict)
 
+@app.route('/searchgd')
+def search_glassdoor():
+    url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=29781&t.k=jQdxv7dRxPc&action=employers&q=Google&userip=0.0.0.0&useragent=Chrome"
+    user_agent = {'User-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36'}
+    response_dict  = requests.get(url, headers = user_agent).json()
+    return jsonify(response_dict)
 
 # If the user executed this python file (typed `python app.py` in their
 # terminal), run our app.
