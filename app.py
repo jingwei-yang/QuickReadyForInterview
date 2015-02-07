@@ -9,27 +9,26 @@ app.config['DEBUG'] = True # Enable this only while testing!
 
 @app.route('/')
 def hello():
-	return render_template('hello.html')
+    return render_template('hello.html')
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
-	if request.method == "POST":
-		url = "https://api.github.com/search/repositories?q=" + request.form["user_search"]
-		print request.form
-		response = requests.get(url)
-		response_dict = response.json()
-		return render_template("results.html", api_data=response_dict, name="bob")
-	else: # request.method == "GET"
-		return render_template("search.html")
+    if request.method == "POST":
+        user_agent = {'User-agent': request.headers.get('User-Agent')}
+        glassdoor_url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=29781&t.k=jQdxv7dRxPc&action=employers&userip=0.0.0.0&useragent=Chrome&q=" + request.form["user_search"]
+        glassdoor_response_dict = requests.get(glassdoor_url, headers = user_agent).json()
+        return jsonify(glassdoor_response_dict)
+    else:
+        return render_template("search.html")
 
 # Handle
 @app.errorhandler(404)
 def not_found(error):
-	return "Sorry, I haven't coded that yet.", 404
+    return "Sorry, I haven't coded that yet.", 404
 
 @app.errorhandler(500)
 def internal_server_error(error):
-	return "My code broke, my bad.", 500
+    return "My code broke, my bad.", 500
 
 
 @app.route('/info/<company_name>')
@@ -41,14 +40,14 @@ def get_posts(company_name):
     response_dict = response.json()
     return jsonify(response_dict)
 
-@app.route('/searchgd')
-def search_glassdoor():
-    url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=29781&t.k=jQdxv7dRxPc&action=employers&q=Google&userip=0.0.0.0&useragent=Chrome"
-    user_agent = {'User-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36'}
+@app.route('/searchgd/<search_query>')
+def search_glassdoor(search_query):
+    url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=29781&t.k=jQdxv7dRxPc&action=employers&userip=0.0.0.0&useragent=Chrome&q=" + search_query
+    user_agent = {'User-agent': request.headers.get('User-Agent')}
     response_dict  = requests.get(url, headers = user_agent).json()
     return jsonify(response_dict)
 
 # If the user executed this python file (typed `python app.py` in their
 # terminal), run our app.
 if __name__ == '__main__':
-	app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')

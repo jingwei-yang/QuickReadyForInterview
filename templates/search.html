@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 <!-- search.html -->
-{% block title %}Search | Has it Been Made Yet?{% endblock %}
+{% block title %}Search | QuickReadyForInterview{% endblock %}
 
 {% block body %}
 <div class="row">
@@ -8,7 +8,7 @@
     <div class="panel">
       <h1>Search</h1>
       <form action="/search" method="post">
-        <input type="text" placeholder="Search for your idea" name="user_search" required/>
+        <input type="text" placeholder="Search for a company" name="user_search" required/>
         <button type="submit">Search</button>
       </form>
       {% block results %}{% endblock %}
