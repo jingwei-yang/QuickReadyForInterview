@@ -186,7 +186,7 @@ def facebook(keyword):
             abstract['message'] = item['message']
             abstract['name'] = item['name']
             abstract['picture'] = item['picture']
-            abstract['updated_time'] = item['updated_time']
+            abstract['pub_date'] = item['updated_time'][:10]
             info_collection.append(abstract);
     return ret
 
