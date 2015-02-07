@@ -52,4 +52,4 @@ def nytime_json(keyword='google'):
 if __name__ == '__main__':
     result = nytime_json('google')
     for it in result:
-        print "**", it['headline']
+        print "**", it['paragraph']
