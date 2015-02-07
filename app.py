@@ -20,10 +20,21 @@ def search():
         user_agent = {'User-agent': request.headers.get('User-Agent')}
         glassdoor_url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=29781&t.k=jQdxv7dRxPc&action=employers&userip=0.0.0.0&useragent=Chrome&q=" + request.form["user_search"]
         glassdoor_response_dict = requests.get(glassdoor_url, headers = user_agent).json()
+        glassdoor_response_dict = process_glassdoor_response(glassdoor_response_dict,request.form["user_search"])
         return jsonify(glassdoor_response_dict)
     else:
         return render_template("search.html")
 
+<<<<<<< HEAD
+def process_glassdoor_response(api_dict, company_name):
+    filtered_dict = {"companies":[]}
+    response_dict = api_dict.get("response")
+    employers_list = response_dict.get("employers")
+    for employer in employers_list:
+        if company_name.lower() in employer.get("name").lower():
+            filtered_dict["companies"].append(employer)
+    return filtered_dict
+=======
 @app.route('/nytimes', methods=["GET", "POST"])
 def search_nytimes():
     if request.method == "POST":
@@ -32,6 +43,7 @@ def search_nytimes():
         return render_template("results.html", api_data=result)
     else:
         return render_template("search.html")
+>>>>>>> origin/master
 
 @app.errorhandler(404)
 def not_found(error):
