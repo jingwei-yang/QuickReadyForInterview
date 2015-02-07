@@ -20,7 +20,7 @@ def nytime_json(keyword='google'):
         'api-key': api_key
     }
 
-    for p in range(3):
+    for p in range(2):
         payload['page'] = p
         response = requests.get(base_url, params=payload).json()
         result0 = response['response']['docs']
