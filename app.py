@@ -154,6 +154,7 @@ def linkedin(keyword):
 
 
 def facebook(keyword):
+    #Returns the list of updates of a company's facebook homepage.
     TOKEN ='575731909230644|ZuJwTeYLANGBOsZFWPczcx8JDZo'
     parameters = {'access_token': TOKEN}
     response = requests.get('https://graph.facebook.com/'+ keyword + '/feed', params=parameters)
@@ -163,13 +164,13 @@ def facebook(keyword):
         abstract = {}
         if (item.has_key('status_type') and item['status_type'] == "shared_story") :
             abstract['link'] = item['link']
-                abstract['message'] = item['message']
-                abstract['name'] = item['name']
-                abstract['picture'] = item['picture']
-                abstract['updated_time'] = item['updated_time']
-                info_collection.append
+            abstract['message'] = item['message']
+            abstract['name'] = item['name']
+            abstract['picture'] = item['picture']
+            abstract['updated_time'] = item['updated_time']
+            info_collection.append(abstract);
     ret = {'data' : info_collection}
-    return ret
+    return jsonify(ret)
 
 
 def nytimes(keyword):
