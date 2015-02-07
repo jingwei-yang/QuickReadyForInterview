@@ -60,9 +60,15 @@ def search_glassdoor(search_query):
     return jsonify(glassdoor_response_dict)
 
 def process_glassdoor_response(api_dict, company_name):
+    if api_dict.get("success") is False:
+        return {"success":False,"status":"Failed to retrieve company data"}
     filtered_dict = {"companies":[]}
     response_dict = api_dict.get("response")
+    if not response_dict:
+        return {"success":False,"status":"Failed to retrieve company data"}
     employers_list = response_dict.get("employers")
+    if not employers_list:
+        return {"success":False,"status":"no matching companies"}
     for employer in employers_list:
         if company_name.lower() in employer.get("name").lower():
             filtered_employer = {"name":employer.get("name"),"website":employer.get("website"),
@@ -74,6 +80,8 @@ def process_glassdoor_response(api_dict, company_name):
                     filtered_ceo["image"] = ceo.get("image")
                 filtered_employer["ceo"] = filtered_ceo
             filtered_dict["companies"].append(filtered_employer)
+    if not filtered_dict.get("companies"):
+        return {"success":False,"status":"no matching companies"}
     return filtered_dict
 
 # If the user executed this python file (typed `python app.py` in their
