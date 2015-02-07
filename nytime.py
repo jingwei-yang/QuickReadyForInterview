@@ -38,7 +38,7 @@ def nytime_json(keyword='google'):
             result.append({
                 'link': web_url,
                 'headline': h.unescape(headline),
-                'message': paragraph,
+                'message': h.unescape(paragraph),
                 'pub_date': pub_date,
                 'picture': thumb
                 })
