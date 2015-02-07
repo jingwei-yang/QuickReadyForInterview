@@ -122,14 +122,14 @@ def get_posts(company_name):
     response_dict = response.json()
     return jsonify(response_dict)
 
-# for testing glassdoor search
-@app.route('/glassdoor/<search_query>')
-def search_glassdoor(search_query):
-    user_agent = {'User-agent': request.headers.get('User-Agent')}
-    glassdoor_url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=29781&t.k=jQdxv7dRxPc&action=employers&userip=0.0.0.0&useragent=Chrome&q=" + search_query
-    glassdoor_response_dict = requests.get(glassdoor_url, headers = user_agent).json()
-    glassdoor_response_dict = process_glassdoor_response(glassdoor_response_dict, search_query)
-    return jsonify(glassdoor_response_dict)
+# # for testing glassdoor search
+# @app.route('/glassdoor/<search_query>')
+# def search_glassdoor(search_query):
+#     user_agent = {'User-agent': request.headers.get('User-Agent')}
+#     glassdoor_url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=29781&t.k=jQdxv7dRxPc&action=employers&userip=0.0.0.0&useragent=Chrome&q=" + search_query
+#     glassdoor_response_dict = requests.get(glassdoor_url, headers = user_agent).json()
+#     glassdoor_response_dict = process_glassdoor_response(glassdoor_response_dict, search_query)
+#     return jsonify(glassdoor_response_dict)
 
 def process_glassdoor_response(api_dict, company_name):
     filtered_dict = {"companies":[]}
