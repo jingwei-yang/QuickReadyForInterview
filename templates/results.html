@@ -1,12 +1,10 @@
 {% extends "search.html" %}
-<!-- results.html -->
+<!-- search.html -->
 {% block results %}
 <ul>
-{% for repo in api_data %}
-	<li>
-		<h3>{{ repo.headline }} by {{ repo.pub_date }}</h3>
-		<p>{{ repo.paragraph }}</p>
-	</li>
+{% for item in api_data %}
+    <li>
+    </li>
 {% endfor %}
 </ul>
 {% endblock %}

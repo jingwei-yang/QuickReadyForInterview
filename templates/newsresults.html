@@ -1,0 +1,12 @@
+{% extends "search.html" %}
+<!-- search.html -->
+{% block newsresults %}
+<ul>
+{% for item in api_data %}
+	<li>
+		<h3>{{ item.headline }} by {{ item.pub_date }}</h3>
+		<p>{{ item.paragraph }}</p>
+	</li>
+{% endfor %}
+</ul>
+{% endblock %}
