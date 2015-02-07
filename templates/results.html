@@ -1,23 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Search Results</title>
+    <title>Results | QuickReadyForInterview</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="../static/css/1-col-portfolio.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/1-col-portfolio.css') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,11 +19,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -107,7 +99,7 @@
 </div>
 <div id="linkedin">
     <p  width = "500px" id="yihong">
-        
+
     {%  if  api_data['linkedin']['name']  %}
          <b><font size="5" color="red">   Company Name : </font></b> {{api_data['linkedin']['name']}}
           <br>
